@@ -77,4 +77,20 @@ class Trainer:
             self.total = 0
             self.batches = 0
 
-    def test(self):
+    def eval(self):
+        self.model.eval()
+
+        test_correct = 0
+        test_total = 0
+
+        for input_ids_batch, attention_masks_batch, y_batch in tqdm(self.dataloader):
+            y_batch = y_batch.to(self.device)
+            y_pred = self.model(input_ids_batch.to(self.device), attention_mask=attention_masks_batch.to(self.device))[0]
+            _, predicted = torch.max(y_pred, 1)
+            test_correct += (predicted == y_batch).sum()
+            test_total += len(y_batch)
+
+        print("Accuracy:", test_correct.float() / test_total)
+
+
+    def print_loss
