@@ -11,10 +11,10 @@ from transformers import AutoModel
 class Trainer:
     def __init__(self, task):
         self.task = task
-        self.device = "cuda:0"
+        self.device = "cuda:1"
         #
         self.epochs = 5
-        self.batch_size = 16
+        self.batch_size = 8
         #
         self.model = self.get_model()
         self.tokenizer = self.get_tokenizer()
